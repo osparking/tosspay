@@ -29,4 +29,7 @@ public class BsOrder {
 
   @Column(nullable = false)
   private OrderStatus orderStatus;
+
+  @OneToOne(mappedBy = "order")
+  private TossPayment payment;
 }

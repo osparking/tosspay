@@ -11,16 +11,16 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TossPayment {
   @Id
-  byte[] paymentId;
+  private byte[] paymentId;
 
   @Column(nullable = false, unique = true)
-  String tossPaymentKey;
+  private String tossPaymentKey;
 
   // 토스내부에서 관리하는 별도의 orderId가 존재함
   @Column(nullable = false)
-  String tossOrderId;
+  private String tossOrderId;
 
   @OneToOne
   @JoinColumn(name = "order_id", nullable = false)
-  BsOrder order;
+  private BsOrder order;
 }
