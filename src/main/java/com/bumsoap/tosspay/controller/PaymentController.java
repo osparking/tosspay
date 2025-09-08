@@ -21,7 +21,7 @@ public class PaymentController {
       @RequestBody SaveAmountRequest saveAmountRequest) {
 
     session.setAttribute(saveAmountRequest.getOrderId(),
-        saveAmountRequest.getAmount());
+        saveAmountRequest.getAmount().toString());
     return ResponseEntity.ok("orderId 를 키에 amount 금액 저장!");
   }
 }
