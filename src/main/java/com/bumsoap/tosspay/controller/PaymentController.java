@@ -1,6 +1,7 @@
 package com.bumsoap.tosspay.controller;
 
 import com.bumsoap.tosspay.request.ApiResponse;
+import com.bumsoap.tosspay.request.ConfirmPaymentRequest;
 import com.bumsoap.tosspay.request.SaveAmountRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/payments")
 public class PaymentController {
+
+  /**
+   * 토스에 결제 승인받기
+   * @param confirmPaymentRequest
+   * @return
+   * @throws Exception
+   */
+  @PostMapping("/confirm")
+  public ResponseEntity confirmPayment(@RequestBody ConfirmPaymentRequest confirmPaymentRequest) throws Exception {
+
+    // requestConfirm(): toss payments에 결제 승인 요청
+    HttpResponse response = tossPaymentClient.requestConfirm(confirmPaymentRequest); // 토스에게 결제 승인 요청
+
+    // 로직이 길어 스도코드로 대체
+    if response의 응답코드가 200이면
+    try 결제정보 데이터베이스 저장 시도
+    성공하면 정상적인 payment 객체 return
+		 catch
+    실패하면 결제를 다시 취소시켜야 함 requestPaymentCancel() 호출
+    그후 에러코드 500 및 에러메시지 return
+        response가	200이 아니면 결제가 아예 안된 것이므로 취소시킬 필요는 없음
+    그냥 에러 코드 및 메시지 return
+  }
+
   /**
    * 결제 금액을 검증
    */
